@@ -21,14 +21,16 @@ Open git command prompt and enter following command:
 
 You need to have installed python with version at least 3.11.
 
-List of libraries which you need to install with pip:
+List of libraries are required:
 * pyaudio
-* twisted
+* threading
+* socket
 
-To install them write these commands to the terminal:
+List of commands to install all required modules:
 
     pip install vidstream
-    pip install twisted
+    pip install threading
+    pip install socket
 
 Then run file main.py with python. Enjoy.
 

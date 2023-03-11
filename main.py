@@ -1,17 +1,20 @@
 from random import randint
 
+import socket
+
 # Import scripts
 from Source import chat
 
 
 def main():
     my_port = randint(1000, 3000)
-    print("My port: ", my_port, "\n")
+    my_ip = socket.gethostbyname(socket.gethostname())
+    print("My ip:", my_ip, "\nMy port:", my_port, "\n")
 
     client_ip = input("Input target IP: ")
     client_port = input("Input target port: ")
 
-    start = chat.Chat(my_port, client_ip, client_port)
+    start = chat.Chat(my_ip, int(my_port), client_ip, int(client_port))
     start.run()
 
 
