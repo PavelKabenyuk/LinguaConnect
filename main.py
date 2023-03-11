@@ -9,7 +9,7 @@ from Source import chat
 def main():
     my_port = randint(1000, 3000)
     my_ip = socket.gethostbyname(socket.gethostname())
-    print("My ip:", my_ip, "\nMy port:", my_port, "\n")
+    print("My port:", my_port, "\n")
 
     client_ip = input("Input target IP: ")
     client_port = input("Input target port: ")
