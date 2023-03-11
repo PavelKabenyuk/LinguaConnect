@@ -1,28 +1,23 @@
-from twisted.internet.protocol import DatagramProtocol
-from twisted.internet import reactor
-import pyaudio
+from vidstream import AudioSender
+from vidstream import AudioReceiver
+
+import threading
+import socket
 
 
-class Client(DatagramProtocol):
-    def __init__(self, client="client"):
-        self.client = client
+class Chat:
+    def __init__(self, my_port, client_ip, client_port):
+        self.my_ip = socket.gethostbyname(socket.gethostname())
+        self.my_port = my_port
+        self.client_ip = client_ip
+        self.client_port = client_port
 
-    def startProtocol(self):
-        py_audio = pyaudio.PyAudio()
-        self.buffer = 1024
-        #TODO need to defind number of chanels by itself
-        self.output_stream = py_audio.open(format=pyaudio.paInt16,
-                                           output=True, rate=44100, channels=1,
-                                           frames_per_buffer=self.buffer)
-        self.input_stream = py_audio.open(format=pyaudio.paInt16,
-                                          input=True, rate=44100, channels=1,
-                                          frames_per_buffer=self.buffer)
-        reactor.callInThread(self.record)
+    def run(self):
+        receiver = AudioReceiver(self.my_ip, self.my_port)
+        receive_thread = threading.Thread(target=receiver.start_server())
 
-    def record(self):
-        while True:
-            data = self.input_stream.read(self.buffer)
-            self.transport.write(data, self.client)
+        sender = AudioSender(self.client_ip, self.client_port)
+        sender_thread = threading.Thread(target=sender.start_stream())
 
-    def datagramReceived(self, datagram, addr):
-        self.output_stream.write(datagram)
+        receive_thread.start()
+        sender_thread.start()

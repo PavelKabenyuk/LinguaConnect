@@ -27,19 +27,8 @@ List of libraries which you need to install with pip:
 
 To install them write these commands to the terminal:
 
-    pip install pyaudio
+    pip install vidstream
     pip install twisted
-
-If you have mac and you got this error: could not build wheels for pyaudio, which is required to install pyproject.toml-based projects,
-then just do these commands with brew:
-
-    brew update
-    brew install portaudio
-    brew link --overwrite portaudio
-
-If you don't have brew, you can install that with this command:
-
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 Then run file main.py with python. Enjoy.
 
